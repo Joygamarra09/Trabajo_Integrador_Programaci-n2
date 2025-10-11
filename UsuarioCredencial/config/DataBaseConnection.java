@@ -1,1 +1,2 @@
-//Rol 1: Implementar clase DatabaseConnection en config/ con método estático que retorne Connection
+//Rol 1: Responsable de la conexión, scripts SQL y estructura relacional
+
