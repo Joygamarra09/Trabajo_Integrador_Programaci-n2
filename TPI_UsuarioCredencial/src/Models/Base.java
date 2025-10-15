@@ -15,6 +15,10 @@ public abstract class Base {
         this.eliminado = eliminado;
     }
 
+    //Constructor vacio
+    public Base() {
+    }
+    
     //Getters y Setters
     public int getId() {
         return id;
@@ -32,9 +36,12 @@ public abstract class Base {
         this.eliminado = eliminado;
     }
 
-    //Constructor vacio
-    public Base() {
+    //Método que retorna si un elemento fue eliminado o no
+    public Boolean isEliminado(){
+        return eliminado;
     }
+    
+   
     
     
 }
