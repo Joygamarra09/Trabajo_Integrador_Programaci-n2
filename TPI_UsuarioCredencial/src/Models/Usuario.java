@@ -15,7 +15,7 @@ public class Usuario extends Base{
     private CredencialAcceso credencial; //Relación unidireccional
 
     //Constructor
-    public Usuario(String username, String email, Boolean activo, LocalDateTime fechaRegistro, int id, Boolean eliminado) {
+    public Usuario(String username, String email, Boolean activo, LocalDateTime fechaRegistro, Long id, Boolean eliminado) {
         super(id, false);
         this.username = username;
         this.email = email;
