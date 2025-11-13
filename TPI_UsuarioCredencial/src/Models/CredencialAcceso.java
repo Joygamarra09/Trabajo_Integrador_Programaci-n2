@@ -14,7 +14,7 @@ public class CredencialAcceso extends Base{
     private Boolean requiereReset;
 
     //Constructor
-    public CredencialAcceso(String hashPassword, String salt, LocalDateTime ultimoCambio, Boolean requiereReset, int id, Boolean eliminado) {
+    public CredencialAcceso(String hashPassword, String salt, LocalDateTime ultimoCambio, Boolean requiereReset, Long id, Boolean eliminado) {
         super(id, false);
         this.hashPassword = hashPassword;
         this.salt = salt;
