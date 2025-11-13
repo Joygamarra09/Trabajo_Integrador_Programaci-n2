@@ -4,9 +4,9 @@ Base
 -id: Long
 -eliminado: Boolean
 --
-+Base(int, Boolean)
++Base(Long, Boolean)
 +Base()
-+getId(): int
++getId(): Long
 +setId(): void
 +getEliminado(): Boolean
 +setEliminado(): void
@@ -18,7 +18,7 @@ Base
 -fechaRegistro: LocalDateTime
 -credencial: CredencialAcceso
 --
-+Usuario(String, String, Boolean, LocalDateTime, int, Boolean)
++Usuario(String, String, Boolean, LocalDateTime, Long, Boolean)
 +Usuario()
 +getUsername(): String
 +setUsername(): void
@@ -37,7 +37,7 @@ Base
 -ultimoCambio: LocalDateTime
 -requiereReset: Boolean
 --
-+CredencialAcceso(String, String, LocalDateTime, Boolean, int, Boolean)
++CredencialAcceso(String, String, LocalDateTime, Boolean, Long, Boolean)
 +CredencialAcceso()
 +getHashPassword(): String
 +setHashPassword(): void
