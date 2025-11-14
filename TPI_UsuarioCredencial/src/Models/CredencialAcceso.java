@@ -12,14 +12,16 @@ public class CredencialAcceso extends Base{
     private String salt;
     private LocalDateTime ultimoCambio;
     private Boolean requiereReset;
+    private int usuarioId;
 
     //Constructor
-    public CredencialAcceso(String hashPassword, String salt, LocalDateTime ultimoCambio, Boolean requiereReset, int id, Boolean eliminado) {
+    public CredencialAcceso(String hashPassword, String salt, LocalDateTime ultimoCambio, Boolean requiereReset,int usuarioID, Long id, Boolean eliminado) {
         super(id, false);
         this.hashPassword = hashPassword;
         this.salt = salt;
         this.ultimoCambio = ultimoCambio;
         this.requiereReset = requiereReset;
+        this.usuarioId = usuarioID;
     }
     
     //Constructor vacío
@@ -60,6 +62,14 @@ public class CredencialAcceso extends Base{
         this.requiereReset = requiereReset;
     }
 
+    public int getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
     //Método toString
     @Override
     public String toString() {
@@ -70,8 +80,9 @@ public class CredencialAcceso extends Base{
             salt: %s,
             ultimoCambio: %s,
             requiereReset: %s,
+            usuarioID: %s
             eliminado: %s
-            }""".formatted(getId(), hashPassword, salt, ultimoCambio, requiereReset, isEliminado());
+            }""".formatted(getId(), hashPassword, salt, ultimoCambio, requiereReset,usuarioId, isEliminado());
     }
   
     
