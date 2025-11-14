@@ -15,6 +15,7 @@ public class CredencialAcceso extends Base{
     private int usuarioId;
 
     //Constructor
+
     public CredencialAcceso(String hashPassword, String salt, LocalDateTime ultimoCambio, Boolean requiereReset,int usuarioID, Long id, Boolean eliminado) {
         super(id, false);
         this.hashPassword = hashPassword;
