@@ -2,7 +2,7 @@
 package DAO;
 
 // Asumo que la clase de conexión está en un paquete 'Config'
-import Config.DatabaseConnection; 
+import config.DatabaseConnection; 
 import Models.CredencialAcceso;
 
 import java.sql.*;

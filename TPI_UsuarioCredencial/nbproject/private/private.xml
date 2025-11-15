@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/Models/CredencialAcceso.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/config/DatabaseConnection.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/Models/Base.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/dao/GenericDao.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/main/appMenu.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/dao/DatabaseConnection.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/dao/UsuarioDAO.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/Models/Usuario.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/sql/Estructura.sql</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/sql/Datos.sql</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/service/UsuarioService.java</file>
+            <file>file:/C:/Users/User/Documents/Gabriela/TUP/Base%20de%20Datos%20I/TPI/Trabajo_Integrador_Programaci-n2/TPI_UsuarioCredencial/src/service/GenericService.java</file>
+        </group>
+    </open-files>
 </project-private>

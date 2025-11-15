@@ -1,13 +1,8 @@
-
-package Config;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
-
-import DAO.UsuarioDAO;
-import Models.Usuario;
 
 /**
  * Clase utilitaria para gestionar conexiones a la base de datos MySQL.

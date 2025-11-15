@@ -1,7 +1,7 @@
 //Rol 3: Interfaces y clases DAO
 
 // Paquete DAO
-package DAO;
+package dao;
 
 import java.sql.Connection;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * Define métodos comunes para operaciones CRUD y transacciones.
  * Lanza 'Exception' para ser consistente con el ejemplo.
  */
-public interface GenericDAO<T> {
+public interface UsuarioDAO<T> {
 
     /**
      * Inserta una entidad, creando y cerrando su propia conexión.
