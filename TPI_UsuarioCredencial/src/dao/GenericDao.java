@@ -1,7 +1,7 @@
 //Rol 3: Interfaces y clases DAO
 
 // Paquete DAO
-package DAO;
+package dao;
 
 import java.sql.Connection;
 import java.util.List;

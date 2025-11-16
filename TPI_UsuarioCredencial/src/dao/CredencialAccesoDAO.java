@@ -1,5 +1,5 @@
 // Paquete DAO
-package DAO;
+package dao;
 
 // Asumo que la clase de conexión está en un paquete 'Config'
 import config.DatabaseConnection; 
