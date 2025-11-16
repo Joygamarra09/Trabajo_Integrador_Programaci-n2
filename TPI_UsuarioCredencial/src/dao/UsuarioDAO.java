@@ -266,7 +266,7 @@ public class UsuarioDAO implements GenericDAO<Usuario> {
             credencial.setSalt(rs.getString("salt"));
             credencial.setUltimoCambio(rs.getTimestamp("ultimo_cambio").toLocalDateTime());
             credencial.setRequiereReset(rs.getBoolean("require_reset"));
-            credencial.setIdUsuario(rs.getLong("id_usuario")); // Este es el FK  //Tira error en Models.CredencialAcceso
+            credencial.setUsuarioId(rs.getLong("id_usuario")); // Este es el FK  //Tira error en Models.CredencialAcceso
             
             // Asignamos la credencial al usuario (Eager Loading)
             usuario.setCredencial(credencial);

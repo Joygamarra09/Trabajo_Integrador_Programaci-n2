@@ -149,7 +149,7 @@ public class CredencialAccesoDAO implements GenericDAO<CredencialAcceso> {
     private void setCredencialParameters(PreparedStatement stmt, CredencialAcceso credencial) throws SQLException {
         stmt.setString(1, credencial.getHashPassword());
         stmt.setString(2, credencial.getSalt());
-        stmt.setLong(3, credencial.getIdUsuario()); // FK del usuario //Tira error en Models.CredencialAcceso
+        stmt.setLong(3, credencial.getUsuarioId()); // FK del usuario //Tira error en Models.CredencialAcceso
     }
 
     /**
@@ -181,7 +181,7 @@ public class CredencialAccesoDAO implements GenericDAO<CredencialAcceso> {
         cred.setSalt(rs.getString("salt"));
         cred.setUltimoCambio(rs.getTimestamp("ultimo_cambio").toLocalDateTime());
         cred.setRequiereReset(rs.getBoolean("require_reset"));
-        cred.setIdUsuario(rs.getLong("id_usuario")); //Tira error en Models.CredencialAcceso
+        cred.setUsuarioId(rs.getLong("id_usuario")); //Tira error en Models.CredencialAcceso
         
         return cred;
     }
