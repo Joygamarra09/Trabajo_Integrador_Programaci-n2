@@ -1,10 +1,10 @@
 package service;
 
-import DAO.CredencialAccesoDAO;
-import DAO.UsuarioDAO;
+import dao.CredencialAccesoDAO;
+import dao.UsuarioDAO;
 import Models.Usuario;
 import Models.CredencialAcceso;
-import dao.DatabaseConnection;
+import config.DatabaseConnection;
 import config.ServiceException;
 import Config.TransactionManager;
 import java.time.LocalDateTime;

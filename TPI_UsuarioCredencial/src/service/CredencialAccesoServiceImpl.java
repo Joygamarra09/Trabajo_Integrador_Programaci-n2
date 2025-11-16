@@ -1,6 +1,6 @@
 package service;
 
-import DAO.CredencialAccesoDAO;
+import dao.CredencialAccesoDAO;
 import Models.CredencialAcceso;
 import config.ServiceException;
 import java.util.List;
