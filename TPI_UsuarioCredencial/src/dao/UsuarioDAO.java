@@ -1,5 +1,5 @@
 // Paquete DAO
-package DAO;
+package dao;
 
 //Clases de otras careptas del proyecto
 import config.DatabaseConnection;  // clase de conexión está en un paquete 'config' -> Emilce
