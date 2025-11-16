@@ -1,87 +1,136 @@
 package service;
 
 import DAO.CredencialAccesoDAO;
-import dao.UsuarioDAO;
+import DAO.UsuarioDAO;
 import Models.Usuario;
 import Models.CredencialAcceso;
 import dao.DatabaseConnection;
 import config.ServiceException;
-import java.sql.Connection;
-import java.sql.SQLException;
+import Config.TransactionManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Implementación del servicio de negocio para la entidad Usuario.
+ * Gestiona operaciones atómicas con transacciones para crear usuario y credencial.
+ */
 public class UsuarioServiceImpl implements GenericService<Usuario, Long> {
 
-    private final UsuarioDAO<Usuario> usuarioDAO;
+    private final UsuarioDAO usuarioDAO;
     private final CredencialAccesoDAO credencialDAO;
 
-    public UsuarioServiceImpl(UsuarioDAO<Usuario> usuarioDAO, CredencialAccesoDAO credencialDAO) {
+    public UsuarioServiceImpl(UsuarioDAO usuarioDAO, CredencialAccesoDAO credencialDAO) {
+        if (usuarioDAO == null) {
+            throw new IllegalArgumentException("UsuarioDAO no puede ser null");
+        }
+        if (credencialDAO == null) {
+            throw new IllegalArgumentException("CredencialAccesoDAO no puede ser null");
+        }
         this.usuarioDAO = usuarioDAO;
         this.credencialDAO = credencialDAO;
     }
 
-    private void validateUsuario(Usuario u) throws ServiceException {
-        if (u.getNombre() == null || u.getNombre().trim().isEmpty()) {
-            throw new ServiceException("El nombre del usuario es obligatorio.");
+    /**
+     * Valida que un usuario tenga datos correctos.
+     */
+    private void validateUsuario(Usuario usuario) {
+        if (usuario == null) {
+            throw new IllegalArgumentException("El usuario no puede ser null");
         }
-        if (u.getEmail() == null || !u.getEmail().contains("@")) {
-            throw new ServiceException("El email es obligatorio y debe tener formato válido.");
+        if (usuario.getNombre() == null || usuario.getNombre().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del usuario es obligatorio");
+        }
+        if (usuario.getEmail() == null || !usuario.getEmail().contains("@")) {
+            throw new IllegalArgumentException("El email es obligatorio y debe tener formato válido");
+        }
+        if (usuario.getUsername() == null || usuario.getUsername().trim().isEmpty()) {
+            throw new IllegalArgumentException("El username es obligatorio");
         }
     }
 
-    private void validateCredencial(CredencialAcceso c) throws ServiceException {
-        if (c.getHashPassword() == null || c.getHashPassword().trim().length() < 8) {
-            throw new ServiceException("El hash de la contraseña es obligatorio y debe tener al menos 8 caracteres.");
+    /**
+     * Valida que una credencial tenga datos correctos.
+     */
+    private void validateCredencial(CredencialAcceso credencial) {
+        if (credencial == null) {
+            throw new IllegalArgumentException("La credencial no puede ser null");
+        }
+        if (credencial.getHashPassword() == null || credencial.getHashPassword().trim().length() < 8) {
+            throw new IllegalArgumentException("El hash de la contraseña es obligatorio y debe tener al menos 8 caracteres");
+        }
+        if (credencial.getSalt() == null || credencial.getSalt().trim().isEmpty()) {
+            throw new IllegalArgumentException("El salt es obligatorio para la seguridad de la contraseña");
         }
     }
 
+    /**
+     * OPERACIÓN TRANSACCIONAL COMPUESTA
+     * Crea un usuario junto con su credencial en una transacción atómica.
+     * 
+     * Flujo transaccional:
+     * 1. Abrir transacción: setAutoCommit(false)
+     * 2. Ejecutar operaciones compuestas (crear usuario, luego credencial)
+     * 3. Commit si todo OK, Rollback ante cualquier error
+     * 4. Restablecer autoCommit(true) y cerrar recursos automáticamente
+     */
     public Usuario crearUsuarioConCredencial(Usuario usuario, CredencialAcceso credencial) throws ServiceException {
-        Connection conn = null;
+        validateUsuario(usuario);
+        validateCredencial(credencial);
+
+        // Verificar que el username no exista
         try {
-            validateUsuario(usuario);
-            validateCredencial(credencial);
+            Usuario usuarioExistente = usuarioDAO.getByUsername(usuario.getUsername());
+            if (usuarioExistente != null) {
+                throw new ServiceException("El username '" + usuario.getUsername() + "' ya está en uso");
+            }
+        } catch (Exception e) {
+            throw new ServiceException("Error al verificar disponibilidad del username: " + e.getMessage(), e);
+        }
 
-            conn = DatabaseConnection.getConnection();
-            //DatabaseConnection.beginTransaction(conn);
+        try (TransactionManager txManager = new TransactionManager(DatabaseConnection.getConnection())) {
+            txManager.startTransaction();
 
-            if (usuario.getFechaRegistro() == null) {
-                usuario.setFechaRegistro(LocalDateTime.now());
+            // Insertar usuario primero
+            usuarioDAO.insertTx(usuario, txManager.getConnection());
+
+            // Validar regla 1→1: impedir más de una credencial por usuario
+            CredencialAcceso credencialExistente = credencialDAO.getByIdUsuario((int) usuario.getId());
+            if (credencialExistente != null) {
+                throw new ServiceException("Ya existe una credencial para este usuario (ID: " + usuario.getId() + ")");
             }
 
-            usuarioDAO.insertTx(usuario, conn);
+            // Asociar credencial al usuario recién creado - SIN CONVERSIÓN
+            credencial.setUsuarioId(usuario.getId()); // getId() ya es long
+            if (credencial.getUltimoCambio() == null) {
+                credencial.setUltimoCambio(LocalDateTime.now());
+            }
 
-            // 5. Crear CredencialAcceso (necesitarías un método similar en CredencialAccesoDAO)
-            // credencial.setUsuarioId(usuario.getId());
-            // if (credencial.getUltimoCambio() == null) {
-            //     credencial.setUltimoCambio(LocalDateTime.now());
-            // }
-            // credencialDAO.insertTx(credencial, conn);
+            // Insertar credencial
+            credencialDAO.insertTx(credencial, txManager.getConnection());
 
-            //DatabaseConnection.commitTransaction(conn);
+            txManager.commit();
+            
+            // Asignar la credencial al usuario para retornarlo completo
+            usuario.setCredencial(credencial);
             return usuario;
 
         } catch (Exception e) {
-            if (conn != null) {
-                try {
-                    DatabaseConnection.rollbackTransaction(conn);
-                } catch (SQLException ex) {
-                    throw new ServiceException("Error al hacer rollback", ex);
-                }
-            }
             throw new ServiceException("Error al crear usuario y credencial: " + e.getMessage(), e);
-        } finally {
-            if (conn != null) {
-                DatabaseConnection.closeConnection(conn);
-            }
         }
     }
 
     @Override
     public Usuario save(Usuario entity) throws ServiceException {
         validateUsuario(entity);
+        
         try {
-            usuarioDAO.insertar(entity); 
+            // Verificar que el username no exista
+            Usuario usuarioExistente = usuarioDAO.getByUsername(entity.getUsername());
+            if (usuarioExistente != null) {
+                throw new ServiceException("El username '" + entity.getUsername() + "' ya está en uso");
+            }
+            
+            usuarioDAO.insertar(entity);
             return entity;
         } catch (Exception e) {
             throw new ServiceException("Error al guardar Usuario: " + e.getMessage(), e);
@@ -91,8 +140,20 @@ public class UsuarioServiceImpl implements GenericService<Usuario, Long> {
     @Override
     public void update(Usuario entity) throws ServiceException {
         validateUsuario(entity);
+        
+        // getId() devuelve long primitivo, NO puede ser null
+        if (entity.getId() <= 0) {
+            throw new ServiceException("El ID del usuario debe ser mayor a 0 para actualizar");
+        }
+        
         try {
-            usuarioDAO.actualizar(entity); 
+            // Verificar que el usuario existe
+            Usuario usuarioExistente = usuarioDAO.getById((int) entity.getId());
+            if (usuarioExistente == null) {
+                throw new ServiceException("No se encontró el usuario con ID: " + entity.getId());
+            }
+            
+            usuarioDAO.actualizar(entity);
         } catch (Exception e) {
             throw new ServiceException("Error al actualizar Usuario: " + e.getMessage(), e);
         }
@@ -100,8 +161,17 @@ public class UsuarioServiceImpl implements GenericService<Usuario, Long> {
 
     @Override
     public void delete(Long id) throws ServiceException {
+        if (id == null || id <= 0) {
+            throw new ServiceException("El ID debe ser mayor a 0");
+        }
+        
         try {
-            // Provisoriamente convertir long a int y usar eliminar
+            // Verificar que el usuario existe
+            Usuario usuarioExistente = usuarioDAO.getById(id.intValue());
+            if (usuarioExistente == null) {
+                throw new ServiceException("No se encontró el usuario con ID: " + id);
+            }
+            
             usuarioDAO.eliminar(id.intValue());
         } catch (Exception e) {
             throw new ServiceException("Error al eliminar Usuario: " + e.getMessage(), e);
@@ -110,6 +180,9 @@ public class UsuarioServiceImpl implements GenericService<Usuario, Long> {
 
     @Override
     public Usuario getById(Long id) throws ServiceException {
+        if (id == null || id <= 0) {
+            throw new ServiceException("El ID debe ser mayor a 0");
+        }
         try {
             return usuarioDAO.getById(id.intValue());
         } catch (Exception e) {
@@ -123,6 +196,20 @@ public class UsuarioServiceImpl implements GenericService<Usuario, Long> {
             return usuarioDAO.getAll();
         } catch (Exception e) {
             throw new ServiceException("Error al obtener todos los Usuarios: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Método adicional para obtener usuario por username.
+     */
+    public Usuario getByUsername(String username) throws ServiceException {
+        if (username == null || username.trim().isEmpty()) {
+            throw new ServiceException("El username no puede estar vacío");
+        }
+        try {
+            return usuarioDAO.getByUsername(username);
+        } catch (Exception e) {
+            throw new ServiceException("Error al obtener Usuario por username: " + e.getMessage(), e);
         }
     }
 }
