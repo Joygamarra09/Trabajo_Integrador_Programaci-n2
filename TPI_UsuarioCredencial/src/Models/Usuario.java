@@ -93,7 +93,7 @@ public class Usuario extends Base{
     }
 
     /** @return true si el usuario está activo, false si no. */
-    public boolean getActivo() {
+    public boolean isActivo() {
         return activo;
     }
 
