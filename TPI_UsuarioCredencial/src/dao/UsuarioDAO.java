@@ -2,7 +2,7 @@
 package DAO;
 
 //Clases de otras careptas del proyecto
-import Config.DatabaseConnection;  // clase de conexión está en un paquete 'Config' -> Emilce
+import config.DatabaseConnection;  // clase de conexión está en un paquete 'config' -> Emilce
 import Models.CredencialAcceso; // Clase CredencialAcceso en Models -> Joana
 import Models.Usuario; // Clase CredencialAcceso en Models -> Joana
 
@@ -135,7 +135,7 @@ public class UsuarioDAO implements GenericDAO<Usuario> {
             
             setUsuarioParameters(stmt, usuario); // Reutilizamos el setter de params
             stmt.setBoolean(5, usuario.getActivo()); // Param 5 es 'activo'
-            stmt.setInt(6, usuario.getId());       // Param 6 es 'id' en el WHERE
+            stmt.setLong(6, usuario.getId());       // Param 6 es 'id' en el WHERE
             
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected == 0) {
@@ -266,7 +266,7 @@ public class UsuarioDAO implements GenericDAO<Usuario> {
             credencial.setSalt(rs.getString("salt"));
             credencial.setUltimoCambio(rs.getTimestamp("ultimo_cambio").toLocalDateTime());
             credencial.setRequiereReset(rs.getBoolean("require_reset"));
-            credencial.setIdUsuario(rs.getInt("id_usuario")); // Este es el FK
+            credencial.setIdUsuario(rs.getLong("id_usuario")); // Este es el FK  //Tira error en Models.CredencialAcceso
             
             // Asignamos la credencial al usuario (Eager Loading)
             usuario.setCredencial(credencial);
