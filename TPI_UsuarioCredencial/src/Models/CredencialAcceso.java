@@ -103,7 +103,7 @@ public class CredencialAcceso extends Base{
      * Indica si se requiere reinicio de contraseña.
      * @return true si requiere reinicio, false si no.
      */
-    public boolean isRequiereReset() {
+    public boolean getRequiereReset() {
         return requiereReset;
     }
 

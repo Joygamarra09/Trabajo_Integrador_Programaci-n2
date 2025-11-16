@@ -47,14 +47,15 @@ public abstract class Base {
         this.id = id;
     }
 
+    
     /**
-     * Indica si la entidad ha sido marcada para eliminación lógica.
-     * @return true si la entidad está eliminada, false si no.
+     * Obtiene el estado de eliminación lógica de la entidad.
+     * @return true si la entidad ha sido eliminada lógicamente, false si no.
      */
-    public boolean isEliminado(){
+    public boolean getEliminado(){
         return eliminado;
     }
-
+    
     /**
      * Establece o cambia el estado de eliminación lógica de la entidad.
      * @param eliminado El nuevo estado de eliminación (true para eliminado, false para activo).
@@ -63,7 +64,13 @@ public abstract class Base {
         this.eliminado = eliminado;
     }
 
-    
+    /**
+     * Indica si la entidad ha sido marcada para eliminación lógica.
+     * @return true si la entidad está eliminada, false si no.
+     */
+    public boolean isEliminado(){
+        return eliminado;
+    }
     
    
     
