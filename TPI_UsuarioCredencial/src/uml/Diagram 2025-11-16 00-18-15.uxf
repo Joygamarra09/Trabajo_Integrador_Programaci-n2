@@ -1,0 +1,61 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>445</x><y>0</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;abstract&gt;&gt;
+Base
+--
+-id: long
+-eliminado: boolean
+--
++Base(long, boolean)
++Base()
++getId(): long
++setId(): void
++getEliminado(): boolean
++setEliminado(): void
++isEliminado(): boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>25</x><y>450</y><w>450</w><h>400</h></coordinates><panel_attributes>Usuario
+--
+-nombre: String
+-apellido: String
+-username: String
+-email: String
+-activo: boolean
+-fechaRegistro: LocalDateTime
+-credencial: CredencialAcceso
+--
++Usuario(String, String, String, String, boolean, LocalDateTime, long, boolean)
++Usuario()
++getNombre(): String
++setNombre(): void
++getApellido(): String
++setApellido(): void
++getUsername(): String
++setUsername(): void
++getEmail(): String
++setEmail(): void
++getActivo(): boolean
++setActivo(): void
++getFechaRegistro(): LocalDateTime
++setFechaRegistro(): void
++getCredencial():  CredencialAcceso
++setCredencial(): void
++toString(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>655</x><y>450</y><w>460</w><h>310</h></coordinates><panel_attributes>CredencialAcceso
+--
+-hashPassword: String
+-salt: String
+-ultimoCambio: LocalDateTime
+-requiereReset: boolean
+-usuarioId: long
+--
++CredencialAcceso(String, String, LocalDateTime, boolean, long, long, boolean)
++CredencialAcceso()
++getHashPassword(): String
++setHashPassword(): void
++getSalt(): String
++setSalt(): void
++getUltimoCambio(): LocalDateTime
++setUltimoCambio(): void
++getRequiereReset(): boolean
++setRequiereReset(): void
++getUsuarioId(): long
++setUsuarioId(): void
++toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>465</x><y>610</y><w>210</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+m1=1</panel_attributes><additional_attributes>190;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>195</x><y>180</y><w>340</w><h>290</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>320;10;10;270</additional_attributes></element><element><id>Relation</id><coordinates><x>555</x><y>180</y><w>300</w><h>290</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;280;270</additional_attributes></element></diagram>

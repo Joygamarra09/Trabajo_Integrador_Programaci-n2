@@ -4,6 +4,10 @@ package Models;
 import java.time.LocalDateTime;
 
 /**
+ * Representa las credenciales de acceso asociadas a un usuario.
+ * Contiene información sobre la contraseña encriptada, el salt,
+ * la fecha del último cambio, si requiere reinicio y el ID del usuario.
+ * Hereda de la clase Base, que incluye atributos comunes como id y eliminado.
  *
  * @author USER
  */
@@ -11,12 +15,22 @@ public class CredencialAcceso extends Base{
     private String hashPassword;
     private String salt;
     private LocalDateTime ultimoCambio;
-    private Boolean requiereReset;
-    private int usuarioId;
+    private boolean requiereReset;
+    private long usuarioId;
 
-    //Constructor
-
-    public CredencialAcceso(String hashPassword, String salt, LocalDateTime ultimoCambio, Boolean requiereReset,int usuarioID, Long id, Boolean eliminado) {
+    
+    /**
+     * Constructor completo para inicializar todas las propiedades de la credencial.
+     *
+     * @param hashPassword Contraseña encriptada.
+     * @param salt Valor de salt para encriptación.
+     * @param ultimoCambio Fecha del último cambio de contraseña.
+     * @param requiereReset Si requiere reinicio de contraseña.
+     * @param usuarioID ID del usuario asociado.
+     * @param id ID de la credencial (heredado de Base).
+     * @param eliminado Estado de eliminación lógica (heredado de Base).
+     */
+    public CredencialAcceso(String hashPassword, String salt, LocalDateTime ultimoCambio, boolean requiereReset,long usuarioID, long id, boolean eliminado) {
         super(id, false);
         this.hashPassword = hashPassword;
         this.salt = salt;
@@ -25,12 +39,19 @@ public class CredencialAcceso extends Base{
         this.usuarioId = usuarioID;
     }
     
-    //Constructor vacío
+    
+    /**
+     * Constructor vacío requerido por frameworks o para inicialización manual.
+     */
     public CredencialAcceso() {
         super();
     }
 
     //Getters y Setters
+    /**
+     * Obtiene la contraseña encriptada.
+     * @return hashPassword
+     */
     public String getHashPassword() {
         return hashPassword;
     }
@@ -47,31 +68,58 @@ public class CredencialAcceso extends Base{
         this.salt = salt;
     }
 
+    /**
+     * Obtiene la fecha del último cambio de contraseña.
+     * @return ultimoCambio
+     */
     public LocalDateTime getUltimoCambio() {
         return ultimoCambio;
     }
 
+    /**
+     * Establece la fecha del último cambio de contraseña.
+     * @param ultimoCambio Nueva fecha de cambio.
+     */
     public void setUltimoCambio(LocalDateTime ultimoCambio) {
         this.ultimoCambio = ultimoCambio;
     }
-
-    public Boolean getRequiereReset() {
+    
+    /**
+     * Indica si se requiere reinicio de contraseña.
+     * @return true si requiere reinicio, false si no.
+     */
+    public boolean getRequiereReset() {
         return requiereReset;
     }
 
-    public void setRequiereReset(Boolean requiereReset) {
+        /**
+     * Establece si se requiere reinicio de contraseña.
+     * @param requiereReset Nuevo estado de reinicio.
+     */
+    public void setRequiereReset(boolean requiereReset) {
         this.requiereReset = requiereReset;
     }
 
-    public int getUsuarioId() {
+    /**
+     * Obtiene el ID del usuario asociado.
+     * @return usuarioId
+     */
+    public long getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(int usuarioId) {
+     /**
+     * Establece el ID del usuario asociado.
+     * @param usuarioId Nuevo ID de usuario.
+     */
+    public void setUsuarioId(long usuarioId) {
         this.usuarioId = usuarioId;
     }
 
-    //Método toString
+    /**
+     * Devuelve una representación textual de la credencial de acceso.
+     * @return Cadena con los valores de los atributos.
+     */
     @Override
     public String toString() {
         return """

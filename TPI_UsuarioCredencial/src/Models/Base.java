@@ -6,11 +6,11 @@ package Models;
  * @author USER
  */
 public abstract class Base {
-    private Long id; //Identificador único
-    private Boolean eliminado; //Marca en la base de datos cuando un elemento es eliminado de forma lógica
+    private long id; //Identificador único
+    private boolean eliminado; //Marca en la base de datos cuando un elemento es eliminado de forma lógica
 
     //Constructor
-    public Base(Long id, Boolean eliminado) {
+    public Base(long id, boolean eliminado) {
         this.id = id;
         this.eliminado = eliminado;
     }
@@ -20,24 +20,24 @@ public abstract class Base {
     }
     
     //Getters y Setters
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Boolean getEliminado() {
+    public boolean getEliminado() {
         return eliminado;
     }
 
-    public void setEliminado(Boolean eliminado) {
+    public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
     }
 
     //Método que retorna si un elemento fue eliminado o no
-    public Boolean isEliminado(){
+    public boolean isEliminado(){
         return eliminado;
     }
     
