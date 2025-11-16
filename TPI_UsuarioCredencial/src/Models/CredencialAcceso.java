@@ -16,6 +16,9 @@ public class CredencialAcceso extends Base{
     private String salt;
     private LocalDateTime ultimoCambio;
     private boolean requiereReset;
+    /**
+     * Esto es la clave foránea que se usaría en una base de datos relacional para vincular la credencial de vuelta al usuario.
+     */
     private long usuarioId;
 
     
@@ -56,14 +59,26 @@ public class CredencialAcceso extends Base{
         return hashPassword;
     }
 
+    /**
+     * Establece la contraseña encriptada.
+     * @param hashPassword Nueva contraseña encriptada (hash).
+     */
     public void setHashPassword(String hashPassword) {
         this.hashPassword = hashPassword;
     }
 
+    /**
+     * Obtiene el valor de salt para encriptación.
+     * @return El valor de salt.
+     */
     public String getSalt() {
         return salt;
     }
 
+    /**
+     * Establece el valor de salt para la encriptación.
+     * @param salt Nuevo valor de salt.
+     */
     public void setSalt(String salt) {
         this.salt = salt;
     }
