@@ -40,7 +40,7 @@ Cómo conectarse a la base de datos remota a través de MySQL Workbench:
   - Hostname: host (parte después de // y antes de :)
   - Port: puerto (número después de :)
   - Username: el usuario (valor de db.user o el que aparezca en la URL)
-  - Password: introducirla manualmente. Por motivos de seguridad, no se encuentra en el repositorio. Por favor, visualizarla en el siguiente link: [Link (Link)](https://youtu.be/REEMPLAZAR_ENLACE)
+  - Password: introducirla manualmente. Por motivos de seguridad, no se encuentra en el repositorio. Por favor, visualizarla en el siguiente link: [Pwd (Enlace a Drive)](https://docs.google.com/document/d/1PYLsZ7cfh4MEVmUacGWSpkS2A9tJkmE2olqPNE7H4e0/edit?usp=sharing)
   - Default Schema: nombre de la base de datos (parte después de /)
   - Use SSL / SSL Mode: según el parámetro sslMode (continuar en la siguiente sección para configurar el certificado en la pestaña SSL)
 
@@ -48,7 +48,7 @@ Subir el certificado CA en MySQL Workbench:
   1. Abrir MySQL Workbench → Database → Manage Connections → New (o Editar conexión existente).
   2. Ir a la pestaña "SSL".
   3. Ajustar "SSL Mode" a `REQUIRED` o `VERIFY_CA`/`VERIFY_IDENTITY` según lo indique el proveedor.
-  4. En "SSL CA File" seleccionar el archivo `ca.pem`. Por motivos de seguridad, este archivo no se encuentra en el repositorio. Por favor, acceder en el siguiente link: [Link (Link)](https://youtu.be/REEMPLAZAR_ENLACE)
+  4. En "SSL CA File" seleccionar el archivo `ca.pem`. Por motivos de seguridad, este archivo no se encuentra en el repositorio. Por favor, acceder en el siguiente link: [Certificado (Enlace a Drive)](https://drive.google.com/file/d/1kI4oK_duQLLjpDpyqhImZtUsfl62s-nl/view?usp=sharing)
   5. Guardar la conexión y probarla.
 
 ### Ejecutar scripts SQL (orden recomendado)
@@ -91,16 +91,19 @@ Para acceder al menú interactivo, la opción recomendada es desde IDE:
 - Error `Access denied for user 'root'@'localhost'`: credenciales incorrectas; usar `-Ddb.user` y `-Ddb.password` o corregir `DatabaseConnection`
 - Error `Unknown database 'usuariocredencial'`: ejecutar scripts SQL en `src/sql` para crear la BD
 
+### Documentación adicional adjunta en este repositorio
+
+- Reporte de casos de prueba manuales.pdf — Contiene los casos de prueba ejecutados manualmente y sus evidencias (capturas). Útil para reproducir pruebas y verificar regresiones.
+- Historias_de_usuario.md — Describe las historias de usuario usadas para definir requisitos: resumen de cada historia, prioridad, criterios de aceptación y escenarios principales.
+
 ### Limitaciones Conocidas
 
 - Interfaz únicamente por consola
-- No se usa pool de conexiones (cada operación abre una conexión)
 - Eliminación lógica (soft delete) — no hay borrado físico
 
 ### Enlace al video
 
 [Video de presentación del proyecto (reemplazar enlace)](https://youtu.be/REEMPLAZAR_ENLACE)
-
 
 ---
 
