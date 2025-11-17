@@ -37,17 +37,32 @@ public class UsuarioServiceImpl implements GenericService<Usuario, Long> {
         if (usuario == null) {
             throw new IllegalArgumentException("El usuario no puede ser null");
         }
+
+        // Validaciones básicas
         if (usuario.getNombre() == null || usuario.getNombre().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del usuario es obligatorio");
-        }
-        if (usuario.getEmail() == null || !usuario.getEmail().contains("@")) {
-            throw new IllegalArgumentException("El email es obligatorio y debe tener formato válido");
         }
         if (usuario.getUsername() == null || usuario.getUsername().trim().isEmpty()) {
             throw new IllegalArgumentException("El username es obligatorio");
         }
-    }
 
+        // Validación de formato de email
+        if (usuario.getEmail() == null || !usuario.getEmail().matches("^[^@]+@[^@]+\\.[^@]+$")) {
+            throw new IllegalArgumentException("El email es obligatorio y debe tener formato válido (ej: usuario@dominio.com)");
+        }
+
+        // Validación de longitud
+        if (usuario.getNombre().length() > 100) {
+            throw new IllegalArgumentException("El nombre no puede exceder 100 caracteres");
+        }
+        if (usuario.getUsername().length() > 50) {
+            throw new IllegalArgumentException("El username no puede exceder 50 caracteres");
+        }
+        if (usuario.getEmail().length() > 255) {
+            throw new IllegalArgumentException("El email no puede exceder 255 caracteres");
+        }
+    }
+    
     /**
      * Valida que una credencial tenga datos correctos.
      */
