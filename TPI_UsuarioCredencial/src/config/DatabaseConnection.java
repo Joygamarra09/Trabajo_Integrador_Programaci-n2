@@ -27,7 +27,7 @@ public final class DatabaseConnection {
     // He agregado "jdbc:mysql://" al principio, los dos puntos ":" para el puerto
     // y la barra "/" para el nombre de la base de datos.
     private static final String URL = System.getProperty("db.url", 
-        "jdbc:mysql://mysql-1e724b1f-bd2025.d.aivencloud.com:27115/usuariocredencial?sslMode=REQUIRED");
+        "jdbc:mysql://mysql-191904ce-usuariocredencial.i.aivencloud.com:28357/usuariocredencial?sslMode=REQUIRED");
 
     /** Usuario. En Aiven suele ser "avnadmin". */
     private static final String USER = System.getProperty("db.user", "avnadmin"); 
