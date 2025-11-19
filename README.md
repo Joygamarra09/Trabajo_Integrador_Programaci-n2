@@ -37,8 +37,8 @@ La configuración por defecto está en la clase `src/config/DatabaseConnection.j
 
 Cómo conectarse a la base de datos remota a través de MySQL Workbench:
 - El connection string JDBC en `DatabaseConnection.java` (ej.: jdbc:mysql://host:puerto/base?sslMode=REQUIRED&...) contiene todos los parámetros necesarios. Puede extraerlos y pegarlos en la creación de una nueva conexión en MySQL Workbench:
-  - Hostname: host (parte después de // y antes de :)
-  - Port: puerto (número después de :)
+  - Hostname: host (parte después de // y antes de : )
+  - Port: puerto (número después de : )
   - Username: el usuario (valor de db.user o el que aparezca en la URL)
   - Password: introducirla manualmente. Por motivos de seguridad, no se encuentra en el repositorio. Por favor, visualizarla en el siguiente link: [Pwd (Enlace a Drive)](https://docs.google.com/document/d/1PYLsZ7cfh4MEVmUacGWSpkS2A9tJkmE2olqPNE7H4e0/edit?usp=sharing)
   - Default Schema: nombre de la base de datos (parte después de /)
@@ -103,7 +103,7 @@ Para acceder al menú interactivo, la opción recomendada es desde IDE:
 
 ### Enlace al video
 
-[Video de presentación del proyecto (reemplazar enlace)](https://youtu.be/REEMPLAZAR_ENLACE)
+[Video de presentación del proyecto(Enlace a Drive)](https://drive.google.com/file/d/1sb5bSsXJBKqxY6oCMAl__sFzlg-XpowC/view?usp=sharing)
 
 ---
 
